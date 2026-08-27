@@ -23,7 +23,7 @@ fn target_url(platform: &str, action: &str, user_name: &str) -> Option<String> {
         ("x", "showReplies" | "deleteReplies") => {
             format!("https://x.com/{user}/with_replies")
         }
-        ("x", "showReposts" | "deleteReposts") => format!("https://x.com/{user}"),
+        ("x", "showReposts" | "deleteReposts") => format!("https://x.com/{user}/reposts"),
         ("x", "showLikes" | "deleteLikes") => format!("https://x.com/{user}/likes"),
         ("x", "showFollowing" | "deleteFollowing") => {
             format!("https://x.com/{user}/following")
@@ -663,7 +663,7 @@ mod tests {
         );
         assert_eq!(
             target_url("x", "deleteReposts", "someuser").unwrap(),
-            "https://x.com/someuser"
+            "https://x.com/someuser/reposts"
         );
         assert_eq!(
             target_url("x", "deleteLikes", "someuser").unwrap(),

@@ -345,6 +345,7 @@ export const de: Record<MessageKey, string> = {
 	'assistant.dismiss': 'Ausblenden',
 
 	'header.url': 'Du bist hier',
+	'header.reload': 'Seite neu laden',
 
 	'log.column.time': 'Zeit',
 	'log.column.level': 'Stufe',

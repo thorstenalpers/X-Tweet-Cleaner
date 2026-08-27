@@ -333,6 +333,7 @@ export const ja: Record<MessageKey, string> = {
 	'assistant.dismiss': '閉じる',
 
 	'header.url': '現在の場所',
+	'header.reload': 'ページを再読み込み',
 
 	'log.column.time': '時刻',
 	'log.column.level': 'レベル',

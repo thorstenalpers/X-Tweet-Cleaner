@@ -533,13 +533,31 @@ pub fn run() {
             // may land a beat early.
             let auto_consent = app.state::<AppState>().settings.get().auto_consent;
             let site_window = window.clone();
+            let nav_handle = app.handle().clone();
             let _ = window.run_on_main_thread(move || {
                 for (label, url) in SITE_WEBVIEWS {
+                    // The injected reporter goes quiet the moment the user leaves the
+                    // platform's hosts, and the header would keep showing the last address it
+                    // heard. This hook fires on every document navigation, whatever the host.
+                    let platform = if label == "site-youtube" {
+                        "youtube"
+                    } else {
+                        "x"
+                    };
+                    let handle = nav_handle.clone();
                     let built = site_window.add_child(
                         WebviewBuilder::new(
                             label,
                             WebviewUrl::External(url.parse().expect("static url")),
                         )
+                        .on_navigation(move |url| {
+                            crate::bridge::push_event(
+                                &handle,
+                                "siteUrl",
+                                serde_json::json!({ "platform": platform, "url": url.as_str() }),
+                            );
+                            true
+                        })
                         .initialization_script_for_all_frames(site_init_script(auto_consent)),
                         LogicalPosition::new(size.width, f64::from(DEFAULT_HEADER_HEIGHT)),
                         LogicalSize::new(

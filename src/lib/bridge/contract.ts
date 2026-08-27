@@ -467,6 +467,17 @@ export const SiteLoginPayloadSchema = z.object({
 });
 export type SiteLoginPayload = z.infer<typeof SiteLoginPayloadSchema>;
 
+/**
+ * Every document navigation of a platform's webview, reported by the host. The injected
+ * reporter only speaks on the platform's own hosts; this is what keeps the header's address
+ * honest when the user follows a link off them.
+ */
+export const SiteUrlPayloadSchema = z.object({
+	platform: PlatformSchema,
+	url: z.string()
+});
+export type SiteUrlPayload = z.infer<typeof SiteUrlPayloadSchema>;
+
 export const UpdateProgressPayloadSchema = z.object({
 	downloaded: z.number().int().nonnegative(),
 	/** Absent when the server sends no length; the bar runs indeterminate then. */
@@ -479,7 +490,8 @@ export const PushEventSchema = z.discriminatedUnion('event', [
 	z.object({ event: z.literal('progress'), payload: ProgressPayloadSchema }),
 	z.object({ event: z.literal('updateProgress'), payload: UpdateProgressPayloadSchema }),
 	z.object({ event: z.literal('settingsChanged'), payload: AppSettingsSchema }),
-	z.object({ event: z.literal('siteLogin'), payload: SiteLoginPayloadSchema })
+	z.object({ event: z.literal('siteLogin'), payload: SiteLoginPayloadSchema }),
+	z.object({ event: z.literal('siteUrl'), payload: SiteUrlPayloadSchema })
 ]);
 export type PushEvent = z.infer<typeof PushEventSchema>;
 

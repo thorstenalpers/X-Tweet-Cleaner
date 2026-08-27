@@ -13,6 +13,8 @@ export class SiteLoginStore {
 				if (event.payload.url) {
 					this.url = { ...this.url, [event.payload.platform]: event.payload.url };
 				}
+			} else if (event.event === 'siteUrl') {
+				this.url = { ...this.url, [event.payload.platform]: event.payload.url };
 			}
 		});
 	}

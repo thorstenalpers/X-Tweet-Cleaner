@@ -320,6 +320,7 @@ export const zh: Record<MessageKey, string> = {
 	'assistant.dismiss': '关闭',
 
 	'header.url': '你在这里',
+	'header.reload': '重新加载页面',
 
 	'log.column.time': '时间',
 	'log.column.level': '级别',

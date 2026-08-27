@@ -555,6 +555,9 @@
 					{location}
 					{settingsStore}
 					onMenuOpenChange={(open: boolean) => (headerMenuOpen = open)}
+					onReload={railPlatform
+						? () => void bridge.call('site.reload', { platform: railPlatform }).catch(() => {})
+						: undefined}
 					onToggleAssistant={assistantReady ? () => (assistantOpen = !assistantOpen) : undefined}
 					assistantOpen={assistantVisible}
 					onOpenActions={railPlatform && !panelVisible
