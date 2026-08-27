@@ -62,15 +62,6 @@
 		</button>
 	{/if}
 
-	{#if icon}
-		{@const Icon = icon}
-		<Icon class="size-4 shrink-0 {iconOnly ? 'text-foreground' : 'text-muted-foreground'}" />
-	{/if}
-	<!-- Still announced when it is not drawn: the mark carries the name for the eye only. -->
-	<span class={iconOnly ? 'sr-only' : 'shrink-0 text-[13px] font-semibold tracking-tight'}>
-		{title}
-	</span>
-
 	{#if onReload}
 		<button
 			type="button"
@@ -82,6 +73,15 @@
 			<RefreshCwIcon class="size-4" />
 		</button>
 	{/if}
+
+	{#if icon}
+		{@const Icon = icon}
+		<Icon class="size-4 shrink-0 {iconOnly ? 'text-foreground' : 'text-muted-foreground'}" />
+	{/if}
+	<!-- Still announced when it is not drawn: the mark carries the name for the eye only. -->
+	<span class={iconOnly ? 'sr-only' : 'shrink-0 text-[13px] font-semibold tracking-tight'}>
+		{title}
+	</span>
 
 	<span
 		title={location}
