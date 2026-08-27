@@ -115,33 +115,6 @@ pub fn navigate(app: &AppHandle, params: &Value) -> Result<Value> {
     Ok(json!({ "ok": true }))
 }
 
-/// Opens an address the user typed into the header. Only the scheme is checked — a typed
-/// address must be a web page, never a script handed to `eval` by way of `javascript:`.
-pub fn open(app: &AppHandle, params: &Value) -> Result<Value> {
-    let platform = params
-        .get("platform")
-        .and_then(Value::as_str)
-        .ok_or(Error::MissingParam("platform"))?;
-    let url = params
-        .get("url")
-        .and_then(Value::as_str)
-        .ok_or(Error::MissingParam("url"))?;
-
-    let allowed =
-        tauri::Url::parse(url).is_ok_and(|parsed| matches!(parsed.scheme(), "https" | "http"));
-    if !allowed {
-        return Ok(json!({ "ok": false }));
-    }
-
-    let site = app
-        .get_webview(crate::site_webview_label(platform))
-        .ok_or_else(|| Error::Site("site webview is gone".into()))?;
-    site.eval(format!("window.location.assign({});", json!(url)))?;
-    // Like `navigate`, the address itself stays out of the log: it can carry the handle.
-    crate::bridge::log(app, "info", format!("{platform}: opening a typed address"));
-    Ok(json!({ "ok": true }))
-}
-
 /// Keeps the page shielded across the wait that follows a navigation.
 ///
 /// The run has already started as far as the user is concerned — the stop button is up and

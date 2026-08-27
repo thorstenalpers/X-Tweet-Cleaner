@@ -326,11 +326,6 @@ export const BridgeMethods = {
 		params: z.object({ platform: PlatformSchema, action: SiteActionSchema }),
 		result: z.object({ ok: z.boolean() })
 	},
-	/** A typed address from the header. The host refuses anything that is not http(s). */
-	'site.open': {
-		params: z.object({ platform: PlatformSchema, url: z.string().url().max(500) }),
-		result: z.object({ ok: z.boolean() })
-	},
 	'site.runAction': {
 		params: z.object({
 			/** Minted by the caller so `progress` push events (which outlive the RPC round-trip) can be correlated back to this run. */

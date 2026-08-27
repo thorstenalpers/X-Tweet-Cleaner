@@ -31,8 +31,6 @@
 		onOpenActions?: () => void;
 		/** Given only while a platform is up: the app's own pages have nothing to reload. */
 		onReload?: () => void;
-		/** Makes the address editable; Enter hands the typed url over. Platforms only. */
-		onNavigate?: (url: string) => void;
 		/** The assistant lives in the app's own column, so its way in belongs in this bar. */
 		onToggleAssistant?: () => void;
 		assistantOpen?: boolean;
@@ -46,29 +44,10 @@
 		settingsStore,
 		onMenuOpenChange,
 		onReload,
-		onNavigate,
 		onOpenActions,
 		onToggleAssistant,
 		assistantOpen = false
 	}: Props = $props();
-
-	let address = $derived(location);
-
-	/** What a browser's address bar does: a domain gets its scheme, anything else a search. */
-	function toUrl(typed: string): string {
-		if (typed.includes('://')) return typed;
-		if (typed.includes('.') && !typed.includes(' ')) return `https://${typed}`;
-		return `https://www.google.com/search?q=${encodeURIComponent(typed)}`;
-	}
-
-	function onAddressKeydown(event: KeyboardEvent): void {
-		if (event.key === 'Enter') {
-			const typed = address.trim();
-			if (typed) onNavigate?.(toUrl(typed));
-		} else if (event.key === 'Escape') {
-			address = location;
-		}
-	}
 </script>
 
 <header class="flex h-11 shrink-0 items-center gap-2 border-b bg-background px-3">
@@ -92,24 +71,13 @@
 		{title}
 	</span>
 
-	{#if onNavigate}
-		<input
-			type="text"
-			spellcheck="false"
-			aria-label={t('header.url')}
-			bind:value={address}
-			onkeydown={onAddressKeydown}
-			class="min-w-0 flex-1 truncate rounded-md bg-muted/60 px-2 py-1 font-mono text-[11px] text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-		/>
-	{:else}
-		<span
-			title={location}
-			aria-label={t('header.url')}
-			class="min-w-0 flex-1 truncate rounded-md bg-muted/60 px-2 py-1 font-mono text-[11px] text-muted-foreground"
-		>
-			{location}
-		</span>
-	{/if}
+	<span
+		title={location}
+		aria-label={t('header.url')}
+		class="min-w-0 flex-1 truncate rounded-md bg-muted/60 px-2 py-1 font-mono text-[11px] text-muted-foreground"
+	>
+		{location}
+	</span>
 
 	<div class="flex shrink-0 items-center gap-0.5">
 		{#if onReload}
