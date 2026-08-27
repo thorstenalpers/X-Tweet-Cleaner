@@ -113,6 +113,7 @@ export function defaultMockHandlers(): MockHandlers {
 		'settings.set': () => undefined,
 		'settings.reset': () => mockSettings(),
 		'site.navigate': () => ({ ok: true }),
+		'site.open': () => ({ ok: true }),
 		'site.runAction': () => ({ deletedCount: 0 }),
 		'site.cancelAction': () => undefined,
 		'site.hide': () => undefined,

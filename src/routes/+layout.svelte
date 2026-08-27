@@ -558,6 +558,10 @@
 					onReload={railPlatform
 						? () => void bridge.call('site.reload', { platform: railPlatform }).catch(() => {})
 						: undefined}
+					onNavigate={railPlatform
+						? (url: string) =>
+								void bridge.call('site.open', { platform: railPlatform, url }).catch(() => {})
+						: undefined}
 					onToggleAssistant={assistantReady ? () => (assistantOpen = !assistantOpen) : undefined}
 					assistantOpen={assistantVisible}
 					onOpenActions={railPlatform && !panelVisible
