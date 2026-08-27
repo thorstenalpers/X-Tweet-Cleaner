@@ -115,9 +115,8 @@ pub fn navigate(app: &AppHandle, params: &Value) -> Result<Value> {
     Ok(json!({ "ok": true }))
 }
 
-/// Opens an address the user typed into the header, on the platform's own hosts and nowhere
-/// else: the webview carries a signed-in session, and a typed address is the one navigation
-/// that does not come out of `target_url`.
+/// Opens an address the user typed into the header. Only the scheme is checked — a typed
+/// address must be a web page, never a script handed to `eval` by way of `javascript:`.
 pub fn open(app: &AppHandle, params: &Value) -> Result<Value> {
     let platform = params
         .get("platform")
@@ -128,12 +127,8 @@ pub fn open(app: &AppHandle, params: &Value) -> Result<Value> {
         .and_then(Value::as_str)
         .ok_or(Error::MissingParam("url"))?;
 
-    let allowed = tauri::Url::parse(url).is_ok_and(|parsed| {
-        parsed.scheme() == "https"
-            && parsed
-                .host_str()
-                .is_some_and(|host| host_allowed(platform, host))
-    });
+    let allowed =
+        tauri::Url::parse(url).is_ok_and(|parsed| matches!(parsed.scheme(), "https" | "http"));
     if !allowed {
         return Ok(json!({ "ok": false }));
     }
@@ -145,18 +140,6 @@ pub fn open(app: &AppHandle, params: &Value) -> Result<Value> {
     // Like `navigate`, the address itself stays out of the log: it can carry the handle.
     crate::bridge::log(app, "info", format!("{platform}: opening a typed address"));
     Ok(json!({ "ok": true }))
-}
-
-/// Whole hosts, never substrings: "x.com.example.net" ends in neither.
-fn host_allowed(platform: &str, host: &str) -> bool {
-    let hosts: &[&str] = match platform {
-        "x" => &["x.com"],
-        "youtube" => &["youtube.com", "myactivity.google.com"],
-        _ => return false,
-    };
-    hosts
-        .iter()
-        .any(|allowed| host == *allowed || host.ends_with(&format!(".{allowed}")))
 }
 
 /// Keeps the page shielded across the wait that follows a navigation.
@@ -717,18 +700,6 @@ mod tests {
             target_url("x", "showFollowing", "someuser").unwrap(),
             "https://x.com/someuser/following"
         );
-    }
-
-    #[test]
-    fn typed_addresses_stay_on_the_platform() {
-        assert!(host_allowed("x", "x.com"));
-        assert!(host_allowed("x", "mobile.x.com"));
-        assert!(!host_allowed("x", "x.com.example.net"));
-        assert!(!host_allowed("x", "youtube.com"));
-        assert!(host_allowed("youtube", "www.youtube.com"));
-        assert!(host_allowed("youtube", "myactivity.google.com"));
-        assert!(!host_allowed("youtube", "google.com"));
-        assert!(!host_allowed("other", "x.com"));
     }
 
     /// `show*` and `delete*` land on the same page; deleting happens where the items are

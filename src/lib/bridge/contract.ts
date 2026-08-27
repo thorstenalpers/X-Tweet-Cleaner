@@ -326,7 +326,7 @@ export const BridgeMethods = {
 		params: z.object({ platform: PlatformSchema, action: SiteActionSchema }),
 		result: z.object({ ok: z.boolean() })
 	},
-	/** A typed address from the header. The host refuses anything off the platform's hosts. */
+	/** A typed address from the header. The host refuses anything that is not http(s). */
 	'site.open': {
 		params: z.object({ platform: PlatformSchema, url: z.string().url().max(500) }),
 		result: z.object({ ok: z.boolean() })

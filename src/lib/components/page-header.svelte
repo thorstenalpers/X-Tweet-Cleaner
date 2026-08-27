@@ -57,10 +57,17 @@
 		address = location;
 	});
 
+	/** What a browser's address bar does: a domain gets its scheme, anything else a search. */
+	function toUrl(typed: string): string {
+		if (typed.includes('://')) return typed;
+		if (typed.includes('.') && !typed.includes(' ')) return `https://${typed}`;
+		return `https://www.google.com/search?q=${encodeURIComponent(typed)}`;
+	}
+
 	function onAddressKeydown(event: KeyboardEvent): void {
 		if (event.key === 'Enter') {
 			const typed = address.trim();
-			if (typed) onNavigate?.(typed.includes('://') ? typed : `https://${typed}`);
+			if (typed) onNavigate?.(toUrl(typed));
 		} else if (event.key === 'Escape') {
 			address = location;
 		}
