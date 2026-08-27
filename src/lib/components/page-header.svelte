@@ -52,10 +52,7 @@
 		assistantOpen = false
 	}: Props = $props();
 
-	let address = $state('');
-	$effect(() => {
-		address = location;
-	});
+	let address = $derived(location);
 
 	/** What a browser's address bar does: a domain gets its scheme, anything else a search. */
 	function toUrl(typed: string): string {
