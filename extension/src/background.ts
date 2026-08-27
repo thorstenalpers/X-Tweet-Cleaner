@@ -43,7 +43,7 @@ function targetUrl(platform: Platform, action: Action, userName: string): string
 			case 'deleteReplies':
 				return `https://x.com/${user}/with_replies`;
 			case 'deleteReposts':
-				return `https://x.com/${user}`;
+				return `https://x.com/${user}/reposts`;
 			case 'deleteLikes':
 				return `https://x.com/${user}/likes`;
 			case 'deleteFollowing':

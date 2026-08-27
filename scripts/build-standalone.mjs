@@ -41,7 +41,7 @@ const ACTIONS = [
 		file: 'cleanmyposts-x-delete-reposts',
 		from: 'x/reposts',
 		name: 'repostsAction',
-		page: 'your profile'
+		page: 'your profile’s Reposts tab'
 	},
 	{ file: 'cleanmyposts-x-delete-likes', from: 'x/likes', name: 'likesAction', page: 'your likes' },
 	{
