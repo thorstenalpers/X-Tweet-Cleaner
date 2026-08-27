@@ -344,6 +344,7 @@ export const fr: Record<MessageKey, string> = {
 	'assistant.dismiss': 'Masquer',
 
 	'header.url': 'Tu es ici',
+	'header.reload': 'Recharger la page',
 
 	'log.column.time': 'Heure',
 	'log.column.level': 'Niveau',

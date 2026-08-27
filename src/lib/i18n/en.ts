@@ -346,6 +346,7 @@ export const en = {
 	'assistant.dismiss': 'Dismiss',
 
 	'header.url': 'You are here',
+	'header.reload': 'Reload page',
 
 	'log.column.time': 'Time',
 	'log.column.level': 'Level',

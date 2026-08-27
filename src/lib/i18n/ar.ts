@@ -328,6 +328,7 @@ export const ar: Record<MessageKey, string> = {
 	'assistant.dismiss': 'إخفاء',
 
 	'header.url': 'أنت هنا',
+	'header.reload': 'إعادة تحميل الصفحة',
 
 	'log.column.time': 'الوقت',
 	'log.column.level': 'المستوى',

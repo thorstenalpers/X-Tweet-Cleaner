@@ -337,6 +337,7 @@ export const ru: Record<MessageKey, string> = {
 	'assistant.dismiss': 'Скрыть',
 
 	'header.url': 'Вы здесь',
+	'header.reload': 'Перезагрузить страницу',
 
 	'log.column.time': 'Время',
 	'log.column.level': 'Уровень',

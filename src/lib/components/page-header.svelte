@@ -4,6 +4,7 @@
 	import LanguageMenu from '$lib/components/language-menu.svelte';
 	import ModeToggle from '$lib/components/mode-toggle.svelte';
 	import PanelLeftIcon from '@lucide/svelte/icons/panel-left';
+	import RefreshCwIcon from '@lucide/svelte/icons/refresh-cw';
 	import SparklesIcon from '@lucide/svelte/icons/sparkles';
 	import { cn } from '$lib/utils';
 	import type { SettingsStore } from '$lib/stores/settings.svelte';
@@ -28,6 +29,8 @@
 		 * it, so this is the way back.
 		 */
 		onOpenActions?: () => void;
+		/** Given only while a platform is up: the app's own pages have nothing to reload. */
+		onReload?: () => void;
 		/** The assistant lives in the app's own column, so its way in belongs in this bar. */
 		onToggleAssistant?: () => void;
 		assistantOpen?: boolean;
@@ -40,6 +43,7 @@
 		iconOnly = false,
 		settingsStore,
 		onMenuOpenChange,
+		onReload,
 		onOpenActions,
 		onToggleAssistant,
 		assistantOpen = false
@@ -66,6 +70,18 @@
 	<span class={iconOnly ? 'sr-only' : 'shrink-0 text-[13px] font-semibold tracking-tight'}>
 		{title}
 	</span>
+
+	{#if onReload}
+		<button
+			type="button"
+			aria-label={t('header.reload')}
+			title={t('header.reload')}
+			onclick={onReload}
+			class="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+		>
+			<RefreshCwIcon class="size-4" />
+		</button>
+	{/if}
 
 	<span
 		title={location}

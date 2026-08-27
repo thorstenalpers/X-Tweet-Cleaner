@@ -335,6 +335,7 @@ export const hi: Record<MessageKey, string> = {
 	'assistant.dismiss': 'हटाएँ',
 
 	'header.url': 'आप यहाँ हैं',
+	'header.reload': 'पेज फिर से लोड करें',
 
 	'log.column.time': 'समय',
 	'log.column.level': 'स्तर',

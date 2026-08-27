@@ -342,6 +342,7 @@ export const it: Record<MessageKey, string> = {
 	'assistant.dismiss': 'Nascondi',
 
 	'header.url': 'Sei qui',
+	'header.reload': 'Ricarica la pagina',
 
 	'log.column.time': 'Ora',
 	'log.column.level': 'Livello',
