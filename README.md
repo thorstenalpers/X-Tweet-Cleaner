@@ -4,6 +4,8 @@
 [![Release](https://img.shields.io/github/v/release/thorstenalpers/CleanMyPosts?style=flat-square&logo=github&label=release)](https://github.com/thorstenalpers/CleanMyPosts/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/thorstenalpers/CleanMyPosts/total?style=flat-square&logo=github&label=downloads)](https://github.com/thorstenalpers/CleanMyPosts/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)](https://github.com/thorstenalpers/CleanMyPosts/releases)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/klkjiihehilemkhhdnfphkildcakadbi?style=flat-square&logo=googlechrome&logoColor=white&label=chrome)](https://chromewebstore.google.com/detail/cleanmyposts/klkjiihehilemkhhdnfphkildcakadbi)
+[![Firefox Add-on](https://img.shields.io/amo/v/cleanmyposts?style=flat-square&logo=firefox&logoColor=white&label=firefox)](https://addons.mozilla.org/en-US/firefox/addon/cleanmyposts/)
 [![Stars](https://img.shields.io/github/stars/thorstenalpers/CleanMyPosts?style=flat-square&logo=github&label=stars)](https://github.com/thorstenalpers/CleanMyPosts)
 
 **CleanMyPosts** deletes all posts, reposts, replies, likes and followings from your X (formerly Twitter) account, and your YouTube comments and liked videos, in bulk — by driving a real browser session rather than an API. It comes as a Windows desktop app and as a [Chrome and Firefox extension](#-in-your-own-browser-the-extension) built from the same engine.
@@ -170,7 +172,12 @@ fixed for both in the same commit.
 - **Same nothing-stored:** no account, no server, no analytics. What is kept is which action is
   running and how far it has got, in memory, until the browser closes.
 
-It is not in either store yet. Until it is, download the build from
+Install it from the store:
+
+- **Chrome:** [Chrome Web Store](https://chromewebstore.google.com/detail/cleanmyposts/klkjiihehilemkhhdnfphkildcakadbi)
+- **Firefox:** [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/cleanmyposts/)
+
+Or skip the stores: download the build from
 [Releases](https://github.com/thorstenalpers/CleanMyPosts/releases) — or build it yourself with
 `npm run build:extension` — and load it unpacked:
 
